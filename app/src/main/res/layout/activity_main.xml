@@ -40,7 +40,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -85,7 +85,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productView"
         android:layout_width="match_parent"
-        android:layout_height="324dp" />
+        android:layout_height="454dp" />
 
     <Button
         android:id="@+id/cartBtn"
