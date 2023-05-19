@@ -33,31 +33,15 @@
             app:srcCompat="@drawable/logo" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enjoy your"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HAPPY MEAL"
+            android:text="SIGN IN WITH GOOGLE"
+            android:textAlignment="center"
             android:textColor="@color/red"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="to make your cravings satisfied"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
     </LinearLayout>
 
     <com.google.android.gms.common.SignInButton

@@ -42,7 +42,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
         holder.productName.setText(foodList.get(position).getImage());
-        holder.productPrice.setText(String.valueOf(foodList.get(position).getPrice()));
+        holder.productPrice.setText("$ " + String.valueOf(foodList.get(position).getPrice()));
 
 
         int drawableResourceID = holder.itemView

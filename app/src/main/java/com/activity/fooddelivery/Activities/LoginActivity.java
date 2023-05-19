@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,8 +30,12 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -43,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private SignInButton signInButton;
 
     SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +73,6 @@ public class LoginActivity extends AppCompatActivity {
         signInButton.setOnClickListener(v -> signIn());
 
     }
-
 
     @Override
     protected void onStart() {
@@ -129,37 +134,94 @@ public class LoginActivity extends AppCompatActivity {
             user.setDisplayName(firebaseUser.getDisplayName());
             user.setEmail(firebaseUser.getEmail());
 
+            // Get the user's profile photo URL
+            Uri photoUrl = firebaseUser.getPhotoUrl();
+            if (photoUrl != null) {
+                user.setImage(photoUrl.toString());
+            }
 
-//            sessionManager.createLoginSession(user.getEmail(),user.getDisplayName());
+            // Check if the user already exists in the database
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users");
+            Query query = userRef.orderByChild("uid").equalTo(user.getUid());
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        // User already exists in the database, handle accordingly
+                        Toast.makeText(getApplicationContext(), "User already exists", Toast.LENGTH_LONG).show();
+                        // Add your logic here for an existing user
+                    } else {
+                        // User does not exist in the database, add the user
+                        DatabaseReference newUserRef = userRef.push();
+                        newUserRef.setValue(user)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        // Data inserted successfully
+                                        Toast.makeText(getApplicationContext(), "Data inserted successfully", Toast.LENGTH_LONG).show();
+                                        // Proceed with your logic for a new user
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Failed to insert the data
+                                        Toast.makeText(getApplicationContext(), "Failed to insert data", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             // Set additional properties as needed
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("user", user);
             startActivity(intent);
-
-            // Add data to database from user
-            databaseRef = FirebaseDatabase.getInstance().getReference("Users");
-
-            databaseRef.push().setValue(user)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // Data inserted successfully
-                            Toast.makeText(getApplicationContext(), "Data inserted successfully", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // Failed to insert the data
-                            Toast.makeText(getApplicationContext(), "Failed to insert data", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-
+            finish(); // Finish the LoginActivity so that the user cannot go back to it after logging in
         } else {
             // User is signed out, update your UI accordingly
             // For example, you can show the Google Sign-In button
+
         }
     }
+
+    private void signOut() {
+        // Sign out from Firebase
+        firebaseAuth.signOut();
+
+        // Sign out from Google SignIn
+        googleSignInClient.signOut().addOnCompleteListener(this, task -> {
+            // Google Sign-Out was successful
+            Toast.makeText(getApplicationContext(), "Signed out successfully", Toast.LENGTH_SHORT).show();
+        });
+
+        // Clear the saved user data or session
+        sessionManager.logoutUser();
+
+        // Update your UI accordingly, e.g., show the Google Sign-In button again
+    }
+
+    // Call this method when you want to allow the user to choose another account to login
+    public void chooseAnotherAccount() {
+        // Sign out from Firebase
+        firebaseAuth.signOut();
+
+        // Sign out from Google SignIn without clearing the saved account
+        googleSignInClient.signOut().addOnCompleteListener(this, task -> {
+            // Google Sign-Out was successful
+            Toast.makeText(getApplicationContext(), "Signed out successfully", Toast.LENGTH_SHORT).show();
+
+            // Start the login flow again
+            signIn();
+        });
+
+        // Clear the saved user data or session if needed
+        sessionManager.logoutUser();
+    }
+
 }
