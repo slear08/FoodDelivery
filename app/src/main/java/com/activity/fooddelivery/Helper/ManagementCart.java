@@ -38,7 +38,7 @@ public class ManagementCart {
 
         tinyDB.putListObject("CardList",foodList);
 
-        Toast.makeText(context,"Added to your cart",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"Added to your cart",Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<FoodDomain> getListCart() {
@@ -69,4 +69,10 @@ public class ManagementCart {
 
         return fee;
     }
+
+    public void clearCart() {
+        tinyDB.remove("CardList");
+        Toast.makeText(context, "Cart cleared", Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         // User already exists in the database, handle accordingly
-                        Toast.makeText(getApplicationContext(), "User already exists", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Welcome back!", Toast.LENGTH_SHORT).show();
                         // Add your logic here for an existing user
                     } else {
                         // User does not exist in the database, add the user
@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         // Data inserted successfully
-                                        Toast.makeText(getApplicationContext(), "Data inserted successfully", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Welcome "+firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
                                         // Proceed with your logic for a new user
                                     }
                                 })

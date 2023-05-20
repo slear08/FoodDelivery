@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     .into(profile);
         } else {
             // Handle the case when the user object is null
-            Toast.makeText(this,"object is null",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Something error",Toast.LENGTH_LONG).show();
         }
 
 
@@ -158,12 +158,12 @@ public class MainActivity extends AppCompatActivity {
         productViewRecycler.setLayoutManager(linearLayoutManager);
 
         ArrayList<FoodDomain> foodList = new ArrayList<>();
-        foodList.add(new FoodDomain("HAMBURGER","Burger kayo sakin","burger",45.35));
-        foodList.add(new FoodDomain("CHICKEN","Chicken kayo sakin","chicken",45.35));
-        foodList.add(new FoodDomain("FRIES","Fries kayo sakin","fries",45.35));
-        foodList.add(new FoodDomain("SPAGHETTI","Spaghetti kayo sakin","spaghetti",45.35));
-        foodList.add(new FoodDomain("COKE","Coke kayo sakin","coke",45.35));
-        foodList.add(new FoodDomain("ICE CREAM","Ice Cream kayo sakin","ice_cream",45.35));
+        foodList.add(new FoodDomain("HAMBURGER","A mouthwatering, grilled patty topped with melted cheese, fresh veggies, and served on a toasted bun for the ultimate burger bliss.","burger",20.25));
+        foodList.add(new FoodDomain("CHICKEN","Juicy and tender, this perfectly seasoned chicken is cooked to perfection, offering a burst of flavor in every bite.","chicken",45.50));
+        foodList.add(new FoodDomain("FRIES"," Crispy and golden on the outside, fluffy on the inside, these addictive fries are the perfect combination of saltiness and crunch.","fries",30.15));
+        foodList.add(new FoodDomain("SPAGHETTI","Pasta coated in a rich, aromatic sauce, creating a delightful symphony of flavors that will transport you to Italy with each twirl of your fork.","spaghetti",45.35));
+        foodList.add(new FoodDomain("COKE","An effervescent, fizzy delight that delivers a refreshing burst of sweetness, tantalizing your taste buds with every sip.","coke",20.15));
+        foodList.add(new FoodDomain("ICE CREAM","Smooth and creamy, this delectable frozen treat offers a heavenly experience with its wide range of flavors, from decadent chocolates to fruity bursts of delight.","ice_cream",20.15));
 
         adapter = new FoodAdapter(foodList);
 

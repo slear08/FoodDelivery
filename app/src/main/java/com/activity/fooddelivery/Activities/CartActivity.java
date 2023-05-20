@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,8 +34,9 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private ManagementCart managementCart;
     private double tax;
-    private TextView subTotalTxt, deliveryFeeTxt, taxTxt, totalAmountTxt, emptyTxt;
+    private TextView subTotalTxt, deliveryFeeTxt, taxTxt, totalAmountTxt, emptyTxt,back;
     private ScrollView scrollView;
+    private double total;
 
     // Firebase
     private DatabaseReference databaseReference;
@@ -67,17 +70,30 @@ public class CartActivity extends AppCompatActivity {
                     String username = user.getDisplayName();
 
                     saveCartToFirebase(username,email);
-                    // Use the email and username as needed
-                    // You can pass them to the saveCartToFirebase method or perform any other actions
+                    // Get the cart items
+                    ArrayList<FoodDomain> productList = managementCart.getListCart();
+//
+                    // Start the InvoiceActivity and pass the cart items as extras
+                    Intent intent = new Intent(CartActivity.this, InvoiceActivity.class);
+                    intent.putExtra("username", username);
+                    intent.putExtra("email", email);
+                    intent.putExtra("productList", productList);
+                    managementCart.clearCart();
+                    startActivity(intent);
+                    finish();
                 } else {
                     // User is not logged in or authentication failed
                     // Handle this case accordingly
                 }
-
-
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public void initList() {
@@ -94,9 +110,11 @@ public class CartActivity extends AppCompatActivity {
 
         if (managementCart.getListCart().isEmpty()) {
             emptyTxt.setVisibility(View.VISIBLE);
+            back.setVisibility(View.VISIBLE);
             scrollView.setVisibility(View.GONE);
         } else {
             emptyTxt.setVisibility(View.GONE);
+            back.setVisibility(View.GONE);
             scrollView.setVisibility(View.VISIBLE);
         }
     }
@@ -119,6 +137,7 @@ public class CartActivity extends AppCompatActivity {
         initList();
     }
 
+
     private void initView() {
         subTotalTxt = findViewById(R.id.subtotalNumber);
         deliveryFeeTxt = findViewById(R.id.deliveryFeeNumber);
@@ -126,6 +145,7 @@ public class CartActivity extends AppCompatActivity {
         totalAmountTxt = findViewById(R.id.totalAmoutLabelNumber);
         recyclerView = findViewById(R.id.cartView);
         emptyTxt = findViewById(R.id.emptyText);
+        back = findViewById(R.id.emptyBackBtn);
         scrollView = findViewById(R.id.scrollView);
     }
 
