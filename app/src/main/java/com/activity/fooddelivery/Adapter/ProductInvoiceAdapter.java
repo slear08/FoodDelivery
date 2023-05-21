@@ -34,7 +34,7 @@ public class ProductInvoiceAdapter extends RecyclerView.Adapter<ProductInvoiceAd
         FoodDomain product = productList.get(position);
 
         holder.tvProductTitle.setText(product.getTitle());
-        holder.tvProductPrice.setText("$" + product.getPrice());
+        holder.tvProductPrice.setText("PHP " + product.getPrice());
     }
 
     @Override

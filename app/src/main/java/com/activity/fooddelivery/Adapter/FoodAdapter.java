@@ -11,14 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.activity.fooddelivery.Activities.CartActivity;
-import com.activity.fooddelivery.Activities.RegisterActivity;
 import com.activity.fooddelivery.Activities.ShowDetailActivity;
 import com.activity.fooddelivery.Domain.FoodDomain;
 import com.activity.fooddelivery.R;
 import com.bumptech.glide.Glide;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
@@ -42,7 +39,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FoodAdapter.ViewHolder holder, int position) {
         holder.productName.setText(foodList.get(position).getImage());
-        holder.productPrice.setText("$ " + String.valueOf(foodList.get(position).getPrice()));
+        holder.productPrice.setText("PHP " + String.valueOf(foodList.get(position).getPrice()));
 
 
         int drawableResourceID = holder.itemView

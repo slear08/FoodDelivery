@@ -129,10 +129,10 @@ public class CartActivity extends AppCompatActivity {
 
         double itemTotal = Math.round((managementCart.getTotalFee() * 100.0)) / 100;
 
-        subTotalTxt.setText("$" + itemTotal);
-        deliveryFeeTxt.setText("$" + delivery);
-        taxTxt.setText("$" + tax);
-        totalAmountTxt.setText("$" + total);
+        subTotalTxt.setText("PHP" + itemTotal);
+        deliveryFeeTxt.setText("PHP" + delivery);
+        taxTxt.setText("PHP" + tax);
+        totalAmountTxt.setText("PHP" + total);
 
         initList();
     }

@@ -73,7 +73,7 @@ public class InvoiceActivity extends AppCompatActivity {
 
         rvProductList.setAdapter(adapter);
 
-        tvTotalAmount.setText("Total Amount: $" + calculateTotalAmount() );
+        tvTotalAmount.setText("Total Amount: PHP" + calculateTotalAmount() );
     }
 
     private void generatePDF() {
@@ -137,11 +137,11 @@ public class InvoiceActivity extends AppCompatActivity {
         document.add(paragraph);
 
         for (FoodDomain product : productList) {
-            paragraph = new Paragraph(product.getTitle()+ " - $" + product.getPrice());
+            paragraph = new Paragraph(product.getTitle()+ " - PHP" + product.getPrice());
             document.add(paragraph);
         }
 
-        paragraph = new Paragraph("Total Amount: $" + calculateTotalAmount());
+        paragraph = new Paragraph("Total Amount: PHP" + calculateTotalAmount());
         paragraph.setSpacingBefore(10f);
         document.add(paragraph);
     }

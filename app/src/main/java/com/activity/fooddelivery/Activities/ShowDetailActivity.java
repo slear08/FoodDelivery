@@ -44,17 +44,17 @@ public class ShowDetailActivity extends AppCompatActivity {
 
 
         title.setText(object.getTitle());
-        price.setText("$"+object.getPrice());
+        price.setText("PHP "+object.getPrice());
         description.setText(object.getDescription());
         quantity.setText(String.valueOf(numberOrder));
-        totalprice.setText("$"+object.getPrice());
+        totalprice.setText("PHP "+object.getPrice());
 
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 numberOrder+=1;
                 quantity.setText(String.valueOf(numberOrder));
-                totalprice.setText(String.valueOf("$"+numberOrder*object.getPrice()));
+                totalprice.setText(String.valueOf("PHP "+numberOrder*object.getPrice()));
             }
         });
 
@@ -65,7 +65,7 @@ public class ShowDetailActivity extends AppCompatActivity {
                     numberOrder-=1;
                 }
                 quantity.setText(String.valueOf(numberOrder));
-                totalprice.setText(String.valueOf("$"+numberOrder*object.getPrice()));
+                totalprice.setText(String.valueOf("PHP "+numberOrder*object.getPrice()));
             }
         });
 
