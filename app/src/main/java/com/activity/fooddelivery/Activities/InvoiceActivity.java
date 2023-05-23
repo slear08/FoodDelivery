@@ -152,10 +152,17 @@ public class InvoiceActivity extends AppCompatActivity {
 
         double totalAmount = 0.0;
         for (FoodDomain product : productList) {
-            totalAmount += product.getPrice();
+            totalAmount += product.getPrice() * product.getCartNumber();
         }
 
-        return totalAmount;
+        double TAX = 0.02;
+        double delivery = 15;
+
+        double tax = Math.round((totalAmount * TAX) * 100.0) / 100.0;
+        double total = Math.round((totalAmount + tax + delivery) * 100.0) / 100.0;
+
+        return total;
     }
+
 
 }

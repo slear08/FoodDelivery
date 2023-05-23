@@ -54,7 +54,7 @@ public class ShowDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 numberOrder+=1;
                 quantity.setText(String.valueOf(numberOrder));
-                totalprice.setText(String.valueOf("PHP "+numberOrder*object.getPrice()));
+                totalprice.setText(String.valueOf("PHP "+Math.round(numberOrder*object.getPrice())));
             }
         });
 
@@ -65,7 +65,7 @@ public class ShowDetailActivity extends AppCompatActivity {
                     numberOrder-=1;
                 }
                 quantity.setText(String.valueOf(numberOrder));
-                totalprice.setText(String.valueOf("PHP "+numberOrder*object.getPrice()));
+                totalprice.setText(String.valueOf("PHP "+Math.round(numberOrder*object.getPrice())));
             }
         });
 
