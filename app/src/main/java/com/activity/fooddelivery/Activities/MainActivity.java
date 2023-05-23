@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
+        slideModels.add(new SlideModel(R.drawable.banner, ScaleTypes.FIT));
         slideModels.add(new SlideModel(R.drawable.burger, ScaleTypes.FIT));
         slideModels.add(new SlideModel(R.drawable.fries, ScaleTypes.FIT));
         slideModels.add(new SlideModel(R.drawable.coke, ScaleTypes.FIT));

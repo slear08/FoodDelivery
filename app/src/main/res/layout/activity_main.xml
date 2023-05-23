@@ -66,6 +66,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
         app:cardBackgroundColor="@color/red"
         app:cardCornerRadius="20dp"
@@ -73,8 +74,8 @@
 
         <com.denzcoskun.imageslider.ImageSlider
             android:id="@+id/imageSlider"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:iss_auto_cycle="true"
             app:iss_corner_radius="20"
             app:iss_delay="1000"
